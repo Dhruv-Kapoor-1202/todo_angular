@@ -1,0 +1,20 @@
+<!-- completed-tasks.component.html -->
+
+<div class="flex flex-wrap justify-center">
+    <div class="w-full text-center">
+      <h2 class="text-2xl font-bold">Completed Tasks</h2>
+    </div>
+    <div class="w-full text-center">
+      <p class="text-gray-600 font-bold text-lg">Total Completed Tasks: {{ completedTasks.length }}</p>
+    </div>
+    <div class="w-full md:w-1/2 xl:w-1/3 p-6" *ngFor="let task of completedTasks">
+      <div class="bg-white rounded shadow-md p-4 hover:shadow-lg transition duration-300 ease-in-out">
+        <h5 class="text-lg font-bold text-green-600">{{ task.title }}</h5>
+        <p class="text-gray-600">{{ task.description }}</p>
+        <p class="text-sm text-gray-500">Priority: {{ task.priority }}</p>
+      </div>
+    </div>
+    <div class="w-full text-center" *ngIf="completedTasks.length === 0">
+      <p class="text-gray-600 font-bold text-2xl">No completed tasks.</p>
+    </div>
+  </div>

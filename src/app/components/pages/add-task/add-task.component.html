@@ -1,0 +1,18 @@
+
+<div class="flex mt-6">
+  <form  (ngSubmit)="addTask()"  id="new-task-form" class="w-full">
+    <label for="task-title">Task Title:</label>
+    <input type="text" id="task-title" [(ngModel)]="title" [ngModelOptions]="{standalone: true}" class="w-full h-16 px-4 py-2 rounded shadow" placeholder="Enter task title"/>
+    <label for="task-description">Task Description:</label>
+    <textarea id="task-description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}" class="w-full h-32 px-4 py-2 rounded shadow" placeholder="Enter task description"></textarea>
+    <label for="due-date">Due Date:</label>
+    <input type="date" id="due-date" [(ngModel)]="dueDate" [ngModelOptions]="{standalone: true}" class="w-full h-16 px-4 py-2 rounded shadow"/>
+    <label for="priority">Priority:</label>
+    <select id="priority"  [(ngModel)]="priority" [ngModelOptions]="{standalone: true}" class="w-full h-16 px-4 py-2 rounded shadow">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+    <button id="add-task-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Task</button>
+  </form>
+</div>

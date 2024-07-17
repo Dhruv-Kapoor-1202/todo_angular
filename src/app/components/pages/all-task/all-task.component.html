@@ -1,0 +1,77 @@
+<div class="flex flex-col  p-4">
+  <h2 class="font-bold text-3xl mb-2">Tasks</h2>
+  <div id="task-list" class="flex flex-col mb-4">
+    <div *ngFor="let task of tasks" class="bg-white shadow-md rounded px-4 py-4 mb-4">
+      <h3 class="font-bold text-2xl">{{ task.title }}</h3>
+      <p class="text-gray-600">Due Date: {{ task.dueDate | date }}</p>
+      <p class="text-gray-600">Priority: 
+        <span *ngIf="task.priority === 'low'"  class="bg-yellow-200 px-2 py-1 rounded text-sm">Low</span>
+        <span *ngIf="task.priority === 'edium'" class="bg-orange-200 px-2 py-1 rounded text-sm">Medium</span>
+        <span *ngIf="task.priority === 'high'" class="bg-red-200 px-2 py-1 rounded text-sm">High</span>
+      </p>
+      <p class="text-gray-600">Description: {{ task.description }}</p>
+      <div class="flex justify-between ">
+        <div>
+          <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="editTask(task)">Edit</button>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="viewTaskHistory(task)">View History</button>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="deleteTask(task)">Delete</button>
+        </div>
+        <div class="flex items-center">
+          <progress max="100" [value]="task.progress"></progress>
+          <select (change)="updateProgress(task, $event)" [(ngModel)]="task.progress" [ngModelOptions]="{standalone: true}">
+            <option value="0">Not Started</option>
+            <option value="25">In Progress (25%)</option>
+            <option value="50">In Progress (50%)</option>
+            <option value="75">In Progress (75%)</option>
+            <option value="100">Complete</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button id="export-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" (click)="exportToCSV()">Export to CSV</button>
+</div>
+  <!-- modal for editing tasks -->
+  <div id="edit-task-modal" class="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex justify-center" *ngIf="showEditModal">
+    <div class="bg-white w-1/2 p-4 rounded shadow">
+      <h2 class="font-bold text-2xl">Edit Task</h2>
+      <form >
+        <input type="text" id="edit-task-title" [(ngModel)]="editedTask.title" [ngModelOptions]="{standalone: true}" class="w-full h-16 px-4 py-2 rounded shadow mb-2" placeholder="Task Title"/>
+        <textarea id="edit-task-description" [(ngModel)]="editedTask.description" [ngModelOptions]="{standalone: true}" class="w-full h-32 px-4 py-2 rounded shadow mb-2" placeholder="Task Description"></textarea>
+        <label for="due-date" class="block mb-2">Due Date:</label>
+        <input type="date" id="due-date" [(ngModel)]="editedTask.dueDate" [ngModelOptions]="{standalone: true}" class="w-full h-16 px-4 py-2 rounded shadow mb-2"/>
+        <label for="priority" class="block mb-2">Priority:</label>
+        <select id="priority" [(ngModel)]="editedTask.priority" [ngModelOptions]="{standalone: true}" class="w-full h-16 px-4 py-2 rounded shadow mb-2">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button id="save-task-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" (click)="saveTask()">Save</button>
+        <button id="cancel-task-btn" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" (click)="cancelEdit()">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+ <!-- modal for task history -->
+<div id="task-history-modal" class="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex justify-center" *ngIf="showHistoryModal">
+  <div class="bg-white w-1/2 h-1/2 p-4 rounded shadow">
+    <h2 class="font-bold text-2xl">Task History</h2>
+    <ul id="task-history-list" class="list-none p-0 m-0">
+      <li *ngFor="let history of taskHistory">
+        {{ history.action }} on {{ history.timestamp | date: 'short' }}
+        <ul class="list-none p-0 m-0">
+          <li *ngIf="history.changes.name">
+            <span class="text-red-500">Name changed from {{ history.changes.name.from }} </span>
+            <span class="text-green-500">to {{ history.changes.name.to }}</span>
+          </li>
+          <li *ngIf="history.changes.description">
+            <span class="text-red-500">Description changed from {{ history.changes.description.from }} </span>
+            <span class="text-green-500">to {{ history.changes.description.to }}</span>
+          </li>
+          <!-- Add more fields as needed -->
+        </ul>
+      </li>
+    </ul>
+    <button id="close-history-btn" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" (click)="closeHistoryModal()">Close</button>
+  </div>
+</div>

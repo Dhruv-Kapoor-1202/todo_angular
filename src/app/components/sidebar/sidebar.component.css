@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+    aside {
+      width: 50%;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    aside {
+      width: 30%;
+    }
+  }

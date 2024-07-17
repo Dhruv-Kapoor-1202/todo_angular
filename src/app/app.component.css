@@ -1,0 +1,16 @@
+/* styles.css */
+/* Add any custom styles that aren't covered by Tailwind CSS classes */
+
+@media (max-width: 768px) {
+  
+  main {
+    margin-left: 50%;
+  }
+}
+
+@media (max-width: 1024px) {
+  
+  main {
+    margin-left: 30%;
+  }
+}
