@@ -28,6 +28,7 @@ export class LoginComponent{
                 localStorage.setItem('token', token);
                 this.authService.isLoggedIn$.subscribe(loggedIn => this.isLoggedIn = loggedIn);
                 
+                
                 this.router.navigate(['/'])
               } 
     

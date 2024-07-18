@@ -12,7 +12,7 @@ export class AuthenticationService {
   constructor() { }
   httpService=inject(HttpService);
 
-  private checkLocalStorage(): boolean {
+   checkLocalStorage(): boolean {
     const token = localStorage.getItem('token');
     return token !== null && token !== undefined; // Check for both null and undefined
   }

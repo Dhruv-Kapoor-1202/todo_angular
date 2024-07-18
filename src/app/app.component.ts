@@ -17,8 +17,11 @@ import { LayoutComponent } from './components/layout/layout.component';
 })
 export class AppComponent {
   title = 'task-manager';
+  
   isLoggedIn: boolean = false;
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService) {
+    this.authService.isLoggedIn$.subscribe(loggedIn => this.isLoggedIn = loggedIn); 
+   }
 
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(loggedIn => this.isLoggedIn = loggedIn); 

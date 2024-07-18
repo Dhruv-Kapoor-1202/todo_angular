@@ -6,7 +6,7 @@ import { HttpService } from '../../../services/http.service';
 
 @Component({
   standalone: true, // Retain standalone for independent functionality
-  selector: 'app-login',
+  selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   imports: [FormsModule,RouterLink] // Include FormsModule and provideHttpClient directly

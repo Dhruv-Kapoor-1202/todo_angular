@@ -1,4 +1,3 @@
-// auth.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
@@ -6,18 +5,15 @@ import { CanActivate, Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
-  constructor( private router: Router) { }
+  constructor(private router: Router, ) { }
 
   canActivate(): boolean {
     const token = localStorage.getItem('token');
     if (token) {
-      // If token is present, redirect to AddTaskComponent
-      this.router.navigate(['/']);
-      return false; // Return false to prevent accessing the original route
+      return true; 
     } else {
-      // If token is not present, redirect to login page
       this.router.navigate(['/login']);
-      return false;
+      return false; 
     }
   }
 }
