@@ -17,8 +17,8 @@ export class AuthenticationService {
     return token !== null && token !== undefined; // Check for both null and undefined
   }
 
-  login(token: string): void {
-    localStorage.setItem('token', token);
+  login(): void {
+    // localStorage.setItem('token', token);
     this.isLoggedInSubject.next(true);
   }
 

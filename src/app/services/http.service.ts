@@ -1,6 +1,7 @@
 import { HttpClient ,HttpHeaders} from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { WebRequestServiceService } from './web-request-service.service';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,12 @@ export class HttpService {
   constructor(private webReqService: WebRequestServiceService) { }
  
   login(email:string,password:string){
-
     return this.webReqService.post('api/auth/login',{email,password})
+    .pipe(
+      catchError(error=>{
+        return throwError(()=>error);
+      })
+    )
   }
 
   signup(username: string, email: string, password: string){

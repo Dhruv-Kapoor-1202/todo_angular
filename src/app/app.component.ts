@@ -6,24 +6,19 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { HeaderComponent } from "./components/header/header.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { SignupComponent } from "./components/auth/signup/signup.component";
-import { LayoutComponent } from './components/layout/layout.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent,LayoutComponent, SidebarComponent, CommonModule, LoginComponent, SignupComponent],
+  imports: [RouterOutlet, HeaderComponent, SidebarComponent, CommonModule, LoginComponent, SignupComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'task-manager';
-  
-  isLoggedIn: boolean = false;
-  constructor(private authService: AuthenticationService) {
-    this.authService.isLoggedIn$.subscribe(loggedIn => this.isLoggedIn = loggedIn); 
-   }
+  isLoggedIn$: any;
 
-  ngOnInit(): void {
-    this.authService.isLoggedIn$.subscribe(loggedIn => this.isLoggedIn = loggedIn); 
+  constructor(private authService: AuthenticationService) {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
 }
